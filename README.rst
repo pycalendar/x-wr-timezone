@@ -54,7 +54,13 @@ Install with ``apt``:
 
 .. code:: shell
 
-    sudo apt-get install python-x-wr-timezone
+    sudo apt-get install python3-x-wr-timezone
+
+Install with `conda <https://github.com/conda-forge/x-wr-timezone-feedstock>`__:
+
+.. code:: shell
+
+    conda install -c conda-forge x-wr-timezone
 
 Support
 -------
@@ -299,10 +305,16 @@ We have a `Security Policy <https://github.com/niccokunzmann/x-wr-timezone/secur
 Related Work
 ------------
 
-This module was reated beause of these issues:
+This module was created because of these issues:
 
 - `icalendar#343 <https://github.com/collective/icalendar/issues/343>`__
 - `python-recurring-ical-events#71 <https://github.com/niccokunzmann/python-recurring-ical-events/issues/71>`__
+
+This module is packaged in other ecosystems:
+
+- `conda-forge feedstock <https://github.com/conda-forge/x-wr-timezone-feedstock>`__
+- `Debian package <https://packages.debian.org/search?keywords=x-wr-timezone>`__
+  (``python3-x-wr-timezone``)
 
 Related Software
 ----------------
