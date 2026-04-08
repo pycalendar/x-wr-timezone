@@ -24,6 +24,16 @@ import click
 X_WR_TIMEZONE = "X-WR-TIMEZONE"
 
 
+def _is_utc_fallback(dt):
+    """Fallback UTC check for icalendar < 7.0.0."""
+    if dt.tzname() is None:
+        return False
+    return dt.tzname().upper() == "UTC"
+
+
+is_utc = getattr(icalendar, "is_utc", _is_utc_fallback)
+
+
 def list_is(l1, l2):
     """Return whether all contents of two lists are identical."""
     return len(l1) == len(l2) and all(e1 is e2 for e1, e2 in zip(l1, l2))
@@ -116,12 +126,6 @@ class CalendarWalker:
         """Walk along a datetime.datetime object."""
         return dt
 
-    def is_UTC(self, dt):
-        """Return whether the time zone is a UTC time zone."""
-        if dt.tzname() is None:
-            return False
-        return dt.tzname().upper() == "UTC"
-
     def is_Floating(self, dt):
         return dt.tzname() is None
 
@@ -153,7 +157,7 @@ class UTCChangingWalker(CalendarWalker):
 
     def walk_value_datetime(self, dt):
         """Walk along a datetime.datetime object."""
-        if self.is_UTC(dt):
+        if is_utc(dt):
             return dt.astimezone(self.new_timezone)
         elif self.is_Floating(dt):
             if is_pytz(self.new_timezone):
