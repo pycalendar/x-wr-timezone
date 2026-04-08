@@ -230,7 +230,7 @@ def main(in_file:BytesIO, out_file:BytesIO, add_timezone: bool):
 
     For bug reports, code and questions, visit the project page:
 
-        https://github.com/niccokunzmann/x-wr-timezone
+        https://github.com/pycalendar/x-wr-timezone
 
     License: LPGLv3+
     """
