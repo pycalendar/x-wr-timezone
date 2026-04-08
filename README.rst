@@ -310,12 +310,6 @@ This module was created because of these issues:
 - `icalendar#343 <https://github.com/collective/icalendar/issues/343>`__
 - `python-recurring-ical-events#71 <https://github.com/niccokunzmann/python-recurring-ical-events/issues/71>`__
 
-This module is packaged in other ecosystems:
-
-- `conda-forge feedstock <https://github.com/conda-forge/x-wr-timezone-feedstock>`__
-- `Debian package <https://packages.debian.org/search?keywords=x-wr-timezone>`__
-  (``python3-x-wr-timezone``)
-
 Related Software
 ----------------
 
