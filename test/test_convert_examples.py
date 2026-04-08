@@ -71,6 +71,12 @@ def EXDATE(dt):
     EXDATE("20140503T200000"), # summer
     EXDATE("20140531T200000"), # summer
     EXDATE("20140705T200000"), # summer
+    # UTC-mandatory attributes must not be converted (issue #19)
+    ("event-with-alarm.in.ics", ("DTSTAMP", "20240115T120000Z"), "DTSTAMP must stay in UTC."),
+    ("event-with-alarm.in.ics", ("CREATED", "20240114T100000Z"), "CREATED must stay in UTC."),
+    ("event-with-alarm.in.ics", ("LAST-MODIFIED", "20240114T110000Z"), "LAST-MODIFIED must stay in UTC."),
+    ("event-with-alarm.in.ics", ("TRIGGER", "20240115T143000Z"), "Absolute TRIGGER must stay in UTC."),
+    ("event-with-alarm.in.ics", ("ACKNOWLEDGED", "20240115T143100Z"), "ACKNOWLEDGED must stay in UTC."),
 ])
 def test_conversion_changes_the_time_zone(to_standard, calendars, calendar_name, content, message):
     calendar = calendars[calendar_name]

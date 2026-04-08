@@ -25,7 +25,7 @@ X_WR_TIMEZONE = "X-WR-TIMEZONE"
 
 
 def list_is(l1, l2):
-    """Return wether all contents of two lists are identical."""
+    """Return whether all contents of two lists are identical."""
     return len(l1) == len(l2) and all(e1 is e2 for e1, e2 in zip(l1, l2))
 
 
@@ -36,11 +36,14 @@ class CalendarWalker:
     """
 
     VALUE_ATTRIBUTES = ['DTSTART', 'DTEND', 'RDATE', 'RECURRENCE-ID', 'EXDATE']
+    # These are the only properties whose datetime values get converted.
+    # DTSTAMP, CREATED, LAST-MODIFIED, TRIGGER (absolute), and ACKNOWLEDGED
+    # are intentionally omitted, they MUST remain in UTC per RFC 5545 / RFC 9074.
 
     def copy_if_changed(self, component, attributes, subcomponents):
         """Check if an icalendar Component has changed and copy it if it has.
 
-        atributes and subcomponents are put into the copy."""
+        attributes and subcomponents are put into the copy."""
         for key, value in attributes.items():
             if component[key] is not value:
                 return self.copy_component(component, attributes, subcomponents)
@@ -126,7 +129,7 @@ class CalendarWalker:
 def is_pytz(tzinfo):
     """Whether the time zone requires localize() and normalize().
 
-    pytz requires these funtions to be used in order to correctly use the
+    pytz requires these functions to be used in order to correctly use the
     time zones after operations.
     """
     return hasattr(tzinfo , "localize")
@@ -202,7 +205,7 @@ def to_standard(
 @click.help_option()
 @click.option('--add-timezone/--no-timezone', default=True, help="Add a VTIMEZONE component to the result.")
 def main(in_file:BytesIO, out_file:BytesIO, add_timezone: bool):
-    """x-wr-timezone converts ICSfiles with X-WR-TIMEZONE to use RFC 5545 instead.
+    """x-wr-timezone converts ICS files with X-WR-TIMEZONE to use RFC 5545 instead.
 
     Convert input:
 
@@ -221,7 +224,7 @@ def main(in_file:BytesIO, out_file:BytesIO, add_timezone: bool):
 
         x-wr-timezone --help
 
-    For bug reports, code and questions, visit the projet page:
+    For bug reports, code and questions, visit the project page:
 
         https://github.com/niccokunzmann/x-wr-timezone
 
