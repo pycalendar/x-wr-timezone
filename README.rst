@@ -1,8 +1,8 @@
 X-WR-TIMEZONE
 =============
 
-.. image:: https://github.com/niccokunzmann/x-wr-timezone/actions/workflows/tests.yml/badge.svg
-   :target: https://github.com/niccokunzmann/x-wr-timezone/actions/workflows/tests.yml
+.. image:: https://github.com/pycalendar/x-wr-timezone/actions/workflows/tests.yml/badge.svg
+   :target: https://github.com/pycalendar/x-wr-timezone/actions/workflows/tests.yml
    :alt: CI build and test status
 
 .. image:: https://badge.fury.io/py/x-wr-timezone.svg
@@ -148,7 +148,7 @@ Here is a full example which does about as much as this module is supposed to do
 Development
 -----------
 
-1. Clone the `repository <https://github.com/niccokunzmann/x-wr-timezone>`_ or its fork and ``cd x-wr-timezone``.
+1. Clone the `repository <https://github.com/pycalendar/x-wr-timezone>`_ or its fork and ``cd x-wr-timezone``.
 2. Optional: Install virtualenv and Python3 and create a virtual environment:
 
    .. code-block:: shell
@@ -198,7 +198,7 @@ To release new versions,
 1. edit the Changelog Section
 2. edit setup.py, the ``__version__`` variable
 3. create a commit and push it
-4. Wait for `CI tests <https://github.com/niccokunzmann/x-wr-timezone/actions/workflows/tests.yml>`_ to finish the build.
+4. Wait for `CI tests <https://github.com/pycalendar/x-wr-timezone/actions/workflows/tests.yml>`_ to finish the build.
 5. run
 
    .. code-block:: shell
@@ -227,15 +227,22 @@ They are required in that sense.
 Example code and ics files can be transferred into tests and speed up fixing bugs.
 
 You can view the tests in the `test folder
-<https://github.com/niccokunzmann/x-wr-timezones/tree/main/test>`_.
+<https://github.com/pycalendar/x-wr-timezones/tree/main/test>`_.
 If you have a calendar ICS file for which this library does not
 generate the desired output, you can add it to the ``test/calendars``
 folder and write tests for what you expect.
-If you like, `open an issue <https://github.com/niccokunzmann/x-wr-timezone/issues>`_ first, e.g. to discuss the changes and
+If you like, `open an issue <https://github.com/pycalendar/x-wr-timezone/issues>`_ first, e.g. to discuss the changes and
 how to go about it.
 
 Changelog
 ---------
+
+- v3.0.0
+
+  - Use ``icalendar.is_utc()`` instead of ``is_UTC()`` to identify UTC, catching aliases like ``Etc/GMT``.
+  - Remove ``is_UTC()`` from ``CalendarWalker``.
+  - Test ``pytz.timezone("UTC")`` and ``datetime.timezone.utc`` as arguments to ``to_standard()``.
+  - Add tests to ensure ``DTSTAMP``, ``CREATED``, ``LAST-MODIFIED``, ``TRIGGER`` and ``ACKNOWLEDGED`` are not converted.
 
 - v2.0.1
 
@@ -280,7 +287,7 @@ Changelog
 - v0.0.5
 
   - Revisit README and CLI and fix spelling mistakes.
-  - Modified behavior to treat events without time zone found in a calendar using the X-WR-TIMEZONE property, see `Pull Request 7 <https://github.com/niccokunzmann/x-wr-timezone/pull/7>`__
+  - Modified behavior to treat events without time zone found in a calendar using the X-WR-TIMEZONE property, see `Pull Request 7 <https://github.com/pycalendar/x-wr-timezone/pull/7>`__
 - v0.0.4
 
   - Test automatic deployment with Gitlab CI.
@@ -300,7 +307,7 @@ Changelog
 Security Policy
 ---------------
 
-We have a `Security Policy <https://github.com/niccokunzmann/x-wr-timezone/security/policy>`__ in place.
+We have a `Security Policy <https://github.com/pycalendar/x-wr-timezone/security/policy>`__ in place.
 
 Related Work
 ------------

@@ -11,7 +11,7 @@ PACKAGE_NAME = "x_wr_timezone"
 HERE = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, HERE)  # for package import
 
-__version__ = "2.0.1"
+__version__ = "3.0.0"
 __author__ = 'Nicco Kunzmann'
 
 
@@ -42,7 +42,7 @@ METADATA = dict(
     author_email='niccokunzmann@rambler.ru',
     description='Repair Google Calendar - This Python module and program makes ICS/iCalendar files using X-WR-TIMEZONE compatible with the RFC 5545 standard.',
     license='LGPL-3.0-or-later',
-    url='https://github.com/niccokunzmann/x-wr-timezone',
+    url='https://github.com/pycalendar/x-wr-timezone',
     keywords='icalendar',
     entry_points="[console_scripts]\nx-wr-timezone = x_wr_timezone:main",
 )
