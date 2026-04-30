@@ -18,7 +18,7 @@ They can:
 
 Maintainers need access to:
 
-- pypi (invide maintainer)
+- pypi (invite maintainer)
 - github (invite admin)
 
 ## Contributions
