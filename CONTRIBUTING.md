@@ -1,7 +1,6 @@
 # Contribution Guide
 
-To get started with development,
-[read the documentation](https://sphinx-icalendar.readthedocs.io/en/latest/contributing.html).
+To get started with development, [read the documentation](README.md).
 
 ## Maintainers
 
