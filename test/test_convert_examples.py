@@ -1,5 +1,6 @@
 """This test converts example calendars"""
 import datetime
+import icalendar
 import pytest
 import x_wr_timezone
 import zoneinfo
@@ -113,3 +114,29 @@ def test_timezone_parameter(calendars, tz, line, message, calendar_name):
     new_calendar = x_wr_timezone.to_standard(calendar.as_icalendar(), timezone=tz)
     output_bytes = new_calendar.to_ical()
     assert_has_line(output_bytes, line, message)
+
+
+def test_invalid_x_wr_timezone_does_not_fail():
+    calendar = icalendar.Calendar.from_ical(b"""BEGIN:VCALENDAR
+VERSION:2.0
+X-WR-TIMEZONE:d6708488efb330c0
+BEGIN:VEVENT
+UID:invalid-x-wr-timezone
+DTSTART:20260101T120000Z
+DTEND:20260101T130000Z
+SUMMARY:Invalid X-WR-TIMEZONE
+END:VEVENT
+END:VCALENDAR
+""")
+
+    new_calendar = x_wr_timezone.to_standard(calendar)
+
+    assert new_calendar is calendar
+    assert new_calendar.to_ical() == calendar.to_ical()
+
+
+def test_invalid_timezone_parameter_still_fails(calendars):
+    calendar = calendars["single-events-DTSTART-DTEND.in.ics"].as_icalendar()
+
+    with pytest.raises(zoneinfo.ZoneInfoNotFoundError):
+        x_wr_timezone.to_standard(calendar, timezone="d6708488efb330c0")

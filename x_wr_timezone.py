@@ -186,10 +186,17 @@ def to_standard(
         
         add_timezone_component: whether to add a VTIMEZONE component to the result.
     """
-    if timezone is None:
+    timezone_from_calendar = timezone is None
+    if timezone_from_calendar:
         timezone = calendar.get(X_WR_TIMEZONE, None)
     if timezone is not None and not isinstance(timezone, datetime.tzinfo):
-        timezone = zoneinfo.ZoneInfo(str(timezone))
+        try:
+            timezone = zoneinfo.ZoneInfo(str(timezone))
+        except zoneinfo.ZoneInfoNotFoundError:
+            if timezone_from_calendar:
+                timezone = None
+            else:
+                raise
     result : icalendar.Calendar = calendar
     del calendar
     if timezone is not None:
