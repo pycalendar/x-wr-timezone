@@ -1,6 +1,6 @@
 # Contribution Guide
 
-To get started with development, [read the documentation](README.md).
+To get started with development, [read the documentation](README.rst).
 
 ## Maintainers
 
@@ -8,7 +8,7 @@ Maintainers are:
 
 - [Nicco Kunzmann](https://github.com/niccokunzmann)
 - [Steve Piercy](https://github.com/stevepiercy)
-- [Sashank Bhamidi](github.com/SashankBhamidi)
+- [Sashank Bhamidi](https://github.com/SashankBhamidi)
 
 They can:
 
@@ -41,4 +41,3 @@ Contributors
 ## Stale pull requests
 
 If an open pull request has had no activity for at least seven days, either through a comment or commit by the contributor, then a maintainer or code owner should ask the contributor whether they need help to complete the work. After another seven days, the maintainer or code owner may resolve the open pull request using their best judgment.
-
