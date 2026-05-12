@@ -237,6 +237,10 @@ how to go about it.
 Changelog
 ---------
 
+- v3.0.1
+
+  - Reintroduce ``CalendarWalker.is_UTC()`` as a compatibility hook backed by ``icalendar.is_utc()``.
+
 - v3.0.0
 
   - Use ``icalendar.is_utc()`` instead of ``is_UTC()`` to identify UTC, catching aliases like ``Etc/GMT``.

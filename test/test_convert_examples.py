@@ -113,3 +113,12 @@ def test_timezone_parameter(calendars, tz, line, message, calendar_name):
     new_calendar = x_wr_timezone.to_standard(calendar.as_icalendar(), timezone=tz)
     output_bytes = new_calendar.to_ical()
     assert_has_line(output_bytes, line, message)
+
+
+def test_calendar_walker_is_utc_compatibility_hook():
+    walker = x_wr_timezone.CalendarWalker()
+    utc_dt = datetime.datetime(2026, 1, 1, tzinfo=zoneinfo.ZoneInfo("Etc/GMT"))
+    floating_dt = datetime.datetime(2026, 1, 1)
+
+    assert walker.is_UTC(utc_dt)
+    assert not walker.is_UTC(floating_dt)
