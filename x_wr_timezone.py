@@ -19,9 +19,17 @@ from icalendar.prop import vDDDTypes, vDDDLists
 import datetime
 import icalendar
 from typing import Optional
-import click
 
 X_WR_TIMEZONE = "X-WR-TIMEZONE"
+CLICK_EXTRA_MESSAGE = (
+    "The x-wr-timezone command line interface requires click. "
+    "Install it with `pip install x-wr-timezone[cli]`."
+)
+
+try:
+    import click
+except ImportError:
+    click = None
 
 
 def _is_utc_fallback(dt):
@@ -202,42 +210,54 @@ def to_standard(
             result.subcomponents.insert(0, get_timezone_component(timezone))
     return result
 
-@click.command()
-@click.argument('in_file', type=click.File('rb'), default="-")
-@click.argument('out_file', type=click.File('wb'), default="-")
-@click.version_option()
-@click.help_option()
-@click.option('--add-timezone/--no-timezone', default=True, help="Add a VTIMEZONE component to the result.")
-def main(in_file:BytesIO, out_file:BytesIO, add_timezone: bool):
-    """x-wr-timezone converts ICS files with X-WR-TIMEZONE to use RFC 5545 instead.
-
-    Convert input:
-
-        cat in.ics | x-wr-timezone > out.ics
-        wget -O- https://example.org/in.ics | x-wr-timezone > out.ics
-        curl https://example.org/in.ics | x-wr-timezone > out.ics
-
-    Convert files:
-
-        x-wr-timezone in.ics out.ics
-
-    By default, x-wr-timezone will add a VTIMEZONE component to the result.
-    Use --no-vtimezone to remove it. (Added in v2.0.0)
-
-    Get help:
-
-        x-wr-timezone --help
-
-    For bug reports, code and questions, visit the project page:
-
-        https://github.com/pycalendar/x-wr-timezone
-
-    License: LPGLv3+
-    """
+def _convert(in_file:BytesIO, out_file:BytesIO, add_timezone: bool):
     calendar = icalendar.Calendar.from_ical(in_file.read())
     new_cal = to_standard(calendar, add_timezone_component=add_timezone)
     out_file.write(new_cal.to_ical())
     return 0
+
+
+CLI_DOC = """x-wr-timezone converts ICS files with X-WR-TIMEZONE to use RFC 5545 instead.
+
+Convert input:
+
+    cat in.ics | x-wr-timezone > out.ics
+    wget -O- https://example.org/in.ics | x-wr-timezone > out.ics
+    curl https://example.org/in.ics | x-wr-timezone > out.ics
+
+Convert files:
+
+    x-wr-timezone in.ics out.ics
+
+By default, x-wr-timezone will add a VTIMEZONE component to the result.
+Use --no-vtimezone to remove it. (Added in v2.0.0)
+
+Get help:
+
+    x-wr-timezone --help
+
+For bug reports, code and questions, visit the project page:
+
+    https://github.com/pycalendar/x-wr-timezone
+
+License: LPGLv3+
+"""
+
+
+if click is None:
+    def main(*args, **kwargs):
+        raise SystemExit(CLICK_EXTRA_MESSAGE)
+else:
+    @click.command(help=CLI_DOC)
+    @click.argument('in_file', type=click.File('rb'), default="-")
+    @click.argument('out_file', type=click.File('wb'), default="-")
+    @click.version_option()
+    @click.help_option()
+    @click.option('--add-timezone/--no-timezone', default=True, help="Add a VTIMEZONE component to the result.")
+    def main(in_file:BytesIO, out_file:BytesIO, add_timezone: bool):
+        return _convert(in_file, out_file, add_timezone)
+
+main.__doc__ = CLI_DOC
 
 
 __all__ = [

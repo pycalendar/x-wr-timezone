@@ -11,7 +11,7 @@ PACKAGE_NAME = "x_wr_timezone"
 HERE = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, HERE)  # for package import
 
-__version__ = "3.0.0"
+__version__ = "4.0.0"
 __author__ = 'Nicco Kunzmann'
 
 
@@ -118,6 +118,9 @@ required_test_packages = read_requirements_file("test-requirements.txt")
 
 SETUPTOOLS_METADATA = dict(
     install_requires=required_packages,
+    extras_require={
+        "cli": ["click"],
+    },
     tests_require=required_test_packages,
     include_package_data=False,
     classifiers=[  # https://pypi.python.org/pypi?%3Aaction=list_classifiers

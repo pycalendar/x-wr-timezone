@@ -50,6 +50,12 @@ Install using ``pip``:
 
     python3 -m pip install x-wr-timezone
 
+Install the command line interface using the ``cli`` extra:
+
+.. code:: shell
+
+    python3 -m pip install x-wr-timezone[cli]
+
 Install with ``apt``:
 
 .. code:: shell
@@ -74,6 +80,7 @@ Command Line Usage
 ------------------
 
 You can standardize the calendars using your command line interface.
+Install ``x-wr-timezone[cli]`` to use the command.
 The examples assume that ``in.ics`` is a calendar which may use
 ``X-WR-TIMEZONE``, whereas ``out.ics`` does not require ``X-WR-TIMEZONE``
 for proper display.
@@ -236,6 +243,12 @@ how to go about it.
 
 Changelog
 ---------
+
+- v4.0.0
+
+  - Make ``click`` optional for library users.
+  - Add a ``cli`` extra for installing the command line interface.
+  - Document ``pip install x-wr-timezone[cli]`` for command line usage.
 
 - v3.0.0
 
