@@ -119,6 +119,13 @@ required_test_packages = read_requirements_file("test-requirements.txt")
 SETUPTOOLS_METADATA = dict(
     install_requires=required_packages,
     tests_require=required_test_packages,
+    project_urls={
+        "GitHub Sponsors": "https://github.com/sponsors/niccokunzmann",
+        "Open Collective": "https://opencollective.com/open-web-calendar/",
+        "Polar": "https://polar.sh/niccokunzmann",
+        "thanks.dev": "https://thanks.dev",
+        "Tidelift": "https://tidelift.com/lifter/search/pypi/x-wr-timezone",
+    },
     include_package_data=False,
     classifiers=[  # https://pypi.python.org/pypi?%3Aaction=list_classifiers
         'Intended Audience :: Developers',
