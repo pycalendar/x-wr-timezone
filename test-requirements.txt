@@ -1,6 +1,6 @@
 pytest
 restructuredtext-lint
 pygments
-icalendar>=5.0.11
+icalendar>=7.1.1
 pytz
 pytest_click
