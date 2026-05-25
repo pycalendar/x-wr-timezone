@@ -24,6 +24,16 @@ import click
 X_WR_TIMEZONE = "X-WR-TIMEZONE"
 
 
+def _as_single_timezone(timezone):
+    """Return one time zone value from calendar metadata, or None if ambiguous."""
+    if not isinstance(timezone, list):
+        return timezone
+    values = set(map(str, timezone))
+    if len(values) == 1:
+        return timezone[0]
+    return None
+
+
 def _is_utc_fallback(dt):
     """Fallback UTC check for icalendar < 7.0.0."""
     if dt.tzname() is None:
@@ -188,6 +198,7 @@ def to_standard(
     """
     if timezone is None:
         timezone = calendar.get(X_WR_TIMEZONE, None)
+        timezone = _as_single_timezone(timezone)
     if timezone is not None and not isinstance(timezone, datetime.tzinfo):
         timezone = zoneinfo.ZoneInfo(str(timezone))
     result : icalendar.Calendar = calendar
