@@ -239,6 +239,9 @@ Changelog
 
 - v3.0.0
 
+  - Handle calendars that provide multiple ``X-WR-TIMEZONE`` values.
+    If all values match, use the repeated timezone; if values conflict,
+    ignore them because the target timezone is ambiguous.
   - Use ``icalendar.is_utc()`` instead of ``is_UTC()`` to identify UTC, catching aliases like ``Etc/GMT``.
   - Remove ``is_UTC()`` from ``CalendarWalker``.
   - Test ``pytz.timezone("UTC")`` and ``datetime.timezone.utc`` as arguments to ``to_standard()``.

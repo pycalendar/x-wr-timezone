@@ -1,5 +1,6 @@
 """This test converts example calendars"""
 import datetime
+import icalendar
 import pytest
 import x_wr_timezone
 import zoneinfo
@@ -113,3 +114,49 @@ def test_timezone_parameter(calendars, tz, line, message, calendar_name):
     new_calendar = x_wr_timezone.to_standard(calendar.as_icalendar(), timezone=tz)
     output_bytes = new_calendar.to_ical()
     assert_has_line(output_bytes, line, message)
+
+
+def test_duplicate_matching_x_wr_timezone_values_are_used():
+    calendar = icalendar.Calendar.from_ical(b"""BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//x-wr-timezone test//
+X-WR-TIMEZONE:Europe/Berlin
+X-WR-TIMEZONE:Europe/Berlin
+BEGIN:VEVENT
+UID:1
+DTSTART:20240101T120000Z
+DTEND:20240101T130000Z
+END:VEVENT
+END:VCALENDAR
+""")
+
+    output_bytes = x_wr_timezone.to_standard(calendar).to_ical()
+
+    assert_has_line(
+        output_bytes,
+        ("DTSTART", "TZID=Europe/Berlin", "20240101T130000"),
+        "Duplicate matching time zones are used.",
+    )
+
+
+def test_duplicate_conflicting_x_wr_timezone_values_are_ignored():
+    calendar = icalendar.Calendar.from_ical(b"""BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//x-wr-timezone test//
+X-WR-TIMEZONE:Europe/Berlin
+X-WR-TIMEZONE:America/New_York
+BEGIN:VEVENT
+UID:1
+DTSTART:20240101T120000Z
+DTEND:20240101T130000Z
+END:VEVENT
+END:VCALENDAR
+""")
+
+    output_bytes = x_wr_timezone.to_standard(calendar).to_ical()
+
+    assert_has_line(
+        output_bytes,
+        ("DTSTART", "20240101T120000Z"),
+        "Conflicting time zones are ignored.",
+    )
