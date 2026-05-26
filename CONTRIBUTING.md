@@ -28,6 +28,9 @@ Contributors
 - can submit pull requests
 - can work on branches inside the repository
 
+Contributor changes should include focused tests where practical and should
+update the changelog in `README.rst` unless the change is trivial.
+
 ## Merge requirements
 
 - Passing tests
@@ -41,4 +44,3 @@ Contributors
 ## Stale pull requests
 
 If an open pull request has had no activity for at least seven days, either through a comment or commit by the contributor, then a maintainer or code owner should ask the contributor whether they need help to complete the work. After another seven days, the maintainer or code owner may resolve the open pull request using their best judgment.
-
