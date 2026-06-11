@@ -122,3 +122,25 @@ def test_calendar_walker_is_utc_compatibility_hook():
 
     assert walker.is_UTC(utc_dt)
     assert not walker.is_UTC(floating_dt)
+
+
+def test_duplicate_matching_x_wr_timezone_values_are_used(calendars):
+    calendar = calendars["duplicate-matching-x-wr-timezone-values.in.ics"].as_icalendar()
+    output_bytes = x_wr_timezone.to_standard(calendar).to_ical()
+
+    assert_has_line(
+        output_bytes,
+        ("DTSTART", "TZID=Europe/Berlin", "20240101T130000"),
+        "Duplicate matching time zones are used.",
+    )
+
+
+def test_duplicate_conflicting_x_wr_timezone_values_are_ignored(calendars):
+    calendar = calendars["duplicate-conflicting-x-wr-timezone-values.in.ics"].as_icalendar()
+    output_bytes = x_wr_timezone.to_standard(calendar).to_ical()
+
+    assert_has_line(
+        output_bytes,
+        ("DTSTART", "20240101T120000Z"),
+        "Conflicting time zones are ignored.",
+    )

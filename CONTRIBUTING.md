@@ -28,6 +28,9 @@ Contributors
 - can submit pull requests
 - can work on branches inside the repository
 
+Contributor changes should include focused tests where practical and should
+update the changelog in `README.rst` unless the change is trivial.
+
 ## Merge requirements
 
 - Passing tests
